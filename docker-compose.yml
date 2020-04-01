@@ -1,0 +1,6 @@
+version: "2"
+services:
+
+  stan:
+    image: domw/phpstan:7.2-cli
+    restart: 'always'
