@@ -30,4 +30,6 @@
 
     docker run --rm -v $PWD:/code domw/phpstan phpstan analyze --level 1 ./path/to/code
 
+    docker run --rm -v $PWD:/code domw/phpstan phpstan analyze --level 1 -c phpstan.neon ./path/to/code
+
     docker run --rm -v $PWD:/code domw/phpstan phpstan analyze --level max ./path/to/code
