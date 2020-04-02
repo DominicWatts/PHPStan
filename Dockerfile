@@ -1,24 +1,23 @@
-FROM php:7.2-cli
+FROM php:7.1-cli-alpine
 
 MAINTAINER Dominic <dominic@xigen.co.uk>
 
-RUN apt-get update \
- && apt-get install -y \
-    zlib1g-dev \
-    libzip-dev \
-    zip \
-    git
+RUN php --version
 
-RUN docker-php-ext-install \
-  zip
+ENV COMPOSER_HOME /composer
+ENV COMPOSER_ALLOW_SUPERUSER 1
+ENV PATH /composer/vendor/bin:$PATH
+ENV PHP_CONF_DIR=/usr/local/etc/php/conf.d
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-RUN composer global require --dev phpstan/phpstan:^0.11.6 \
-  && composer global require --dev bitexpert/phpstan-magento:dev-master \
-  && mkdir -p /code
+RUN echo "memory_limit=-1" > $PHP_CONF_DIR/99_memory-limit.ini \
+    && apk add git \
+    && rm -rf /var/cache/apk/* /var/tmp/* /tmp/*
 
-ENV PATH="/root/.composer/vendor/bin:${PATH}"
+RUN composer global require phpstan/phpstan:dev-master
 
+VOLUME ["/code"]
 WORKDIR /code
-VOLUME /code
+
+ENTRYPOINT ["phpstan"]
