@@ -16,20 +16,20 @@
 
 ## Test
 
-    docker-compose run --rm stan phpstan
+    docker-compose run --rm stan
 
-    docker-compose run --rm stan phpstan --version
+    docker-compose run --rm stan --version
 
 ## Usage
     
     docker pull domw/phpstan
 
-    docker run --rm -v $PWD:/code domw/phpstan phpstan --version
+    docker run --rm -v $PWD:/code domw/phpstan --version
     
-    docker run --rm -v $PWD:/code domw/phpstan phpstan analyze ./path/to/code
+    docker run --rm -v $PWD:/code domw/phpstan analyze ./path/to/code
 
-    docker run --rm -v $PWD:/code domw/phpstan phpstan analyze --level 1 ./path/to/code
+    docker run --rm -v $PWD:/code domw/phpstan analyze --level 1 ./path/to/code
 
-    docker run --rm -v $PWD:/code domw/phpstan phpstan analyze --level 1 -c phpstan.neon ./path/to/code
+    docker run --rm -v $PWD:/code domw/phpstan analyze --level 1 -c phpstan.neon ./path/to/code
 
-    docker run --rm -v $PWD:/code domw/phpstan phpstan analyze --level max ./path/to/code
+    docker run --rm -v $PWD:/code domw/phpstan analyze --level max ./path/to/code
