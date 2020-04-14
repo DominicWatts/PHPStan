@@ -33,3 +33,17 @@
     docker run --rm -v $PWD:/code domw/phpstan analyze --level 1 -c phpstan.neon ./path/to/code
 
     docker run --rm -v $PWD:/code domw/phpstan analyze --level max ./path/to/code
+
+## Gitlab
+
+    stages:
+    - php-stan
+
+    php-stan:
+    image: domw/phpstan:gitlab-7.3
+    type: php-stan
+    tags:
+        - docker
+    script:
+        - phpstan --version
+        - phpstan analyze --level 0 /builds/vendor/module/path/to/code
