@@ -1,26 +1,21 @@
-FROM php:7.3-cli
+FROM php:7.2-cli-alpine
 
 MAINTAINER Dominic <dominic@xigen.co.uk>
+
+RUN php --version
 
 ENV COMPOSER_HOME /composer
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV PATH /composer/vendor/bin:$PATH
 ENV PHP_CONF_DIR=/usr/local/etc/php/conf.d
 
-RUN apt-get update \
- && apt-get install -y \
-    zlib1g-dev \
-    libzip-dev \
-    zip \
-    git
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-RUN docker-php-ext-install \
-  zip
+RUN echo "memory_limit=-1" > $PHP_CONF_DIR/99_memory-limit.ini \
+    && apk add git \
+    && rm -rf /var/cache/apk/* /var/tmp/* /tmp/*
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN composer global require phpstan/phpstan:dev-master
 
-RUN composer global require phpstan/phpstan:dev-master \
-  && mkdir -p /code
-
+VOLUME ["/code"]
 WORKDIR /code
-VOLUME /code
