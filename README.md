@@ -26,6 +26,8 @@
 
     docker run --rm -v $PWD:/code domw/phpstan --version
     
+    docker run --rm -v $PWD:/code domw/phpstan:gitlab-7.2 phpstan --version
+    
     docker run --rm -v $PWD:/code domw/phpstan analyze ./path/to/code
 
     docker run --rm -v $PWD:/code domw/phpstan analyze --level 1 ./path/to/code
