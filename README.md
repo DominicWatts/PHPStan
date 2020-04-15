@@ -36,14 +36,18 @@
 
 ## Gitlab
 
-    stages:
-    - php-stan
+```
+stages:
+  - php-stan
 
-    php-stan:
-    image: domw/phpstan:gitlab-7.3
-    type: php-stan
-    tags:
-        - docker
-    script:
-        - phpstan --version
-        - phpstan analyze --level 0 /builds/vendor/module/path/to/code
+php-stan:
+  image: domw/phpstan:gitlab-7.3
+  type: php-stan
+  tags:
+    - docker
+  script:
+    - composer global config http-basic.repo.magento.com d2eb3c98428210463077e4ca2b806e90 bf5d07ecb44854e94d7f78ef969d9470
+    - composer install --prefer-dist -o --no-dev --ignore-platform-reqs -d /builds/vendor/module
+    - phpstan --version
+    - phpstan analyze --level 0 /builds/vendor/module/path/to/code/
+```
