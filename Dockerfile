@@ -15,7 +15,7 @@ RUN echo "memory_limit=-1" > $PHP_CONF_DIR/99_memory-limit.ini \
     && apk add --no-cache \ 
         git \
         php7-intl \
-    && docker-php-ext-install \
+    && docker-php-ext-install -j "$(getconf _NPROCESSORS_ONLN)" \
         intl \
     && rm -rf /var/cache/apk/* /var/tmp/* /tmp/*
 
