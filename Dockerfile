@@ -17,6 +17,10 @@ RUN echo "memory_limit=-1" > $PHP_CONF_DIR/99_memory-limit.ini \
 
 RUN composer global require phpstan/phpstan:^0
 
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+
+RUN install-php-extensions bcmath ctype curl dom gd hash iconv intl mbstring openssl pdo_mysql soap sodium xsl zip libxml
+
 VOLUME ["/code"]
 WORKDIR /code
 
