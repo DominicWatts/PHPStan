@@ -1,4 +1,23 @@
-# docker image with phpstan
+# PHPstan docker for Magento 2 code tests 
+
+php cli apline images with the following components 
+
+ - bcmath
+ - ctype
+ - curl
+ - dom
+ - gd
+ - hash
+ - iconv
+ - intl
+ - mbstring
+ - openssl
+ - pdo_mysql
+ - soap
+ - sodium
+ - xsl
+ - zip
+ - libxml
 
 [Docker_Hub](https://hub.docker.com/r/domw/phpstan)
 
@@ -53,3 +72,22 @@ php-stan:
     - phpstan --version
     - phpstan analyze --level 0 /builds/vendor/module/path/to/code/
 ```
+
+## Github
+
+```
+name: PHPStan
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: MilesChou/composer-action@master
+      env:
+        COMPOSER_AUTH: ${{secrets.COMPOSER_AUTH}}
+      with:
+        args: install --prefer-dist --no-dev --ignore-platform-reqs
+    - name: PHPStan
+      run: docker run --rm -v $PWD:/code domw/phpstan phpstan analyze ./
+ ```
