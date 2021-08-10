@@ -25,13 +25,30 @@ php cli apline images with the following components
 
     docker login
 
-    docker build -t domw/phpstan:latest ./
+    docker build -t domw/phpstan:7.2 ./
 
-    docker push domw/phpstan:latest
+    docker push domw/phpstan:7.2
+    
+    docker build -t domw/phpstan:gitlab-7.2 ./
 
-    docker build -t domw/phpstan:7.2-cli ./
+    docker push domw/phpstan:gitlab-72
 
-    docker push domw/phpstan:7.2-cli 
+## Tags
+
+Simple usage
+
+ - phpstan:7.1
+ - phpstan:7.2
+ - phpstan:7.3
+ - phpstan:7.4
+
+For usage in CI codetests
+
+ - phpstan:gitab-7.1
+ - phpstan:gitab-7.2
+ - phpstan:gitab-7.3
+ - phpstan:gitab-7.4
+
 
 ## Test
 
