@@ -31,7 +31,7 @@ php cli apline images with the following components
     
     docker build -t domw/phpstan:gitlab-7.2 ./
 
-    docker push domw/phpstan:gitlab-72
+    docker push domw/phpstan:gitlab-7.2
 
 ## Tags
 
